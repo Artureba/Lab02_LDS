@@ -1,0 +1,65 @@
+@startuml
+class Usuario {
+    +RG: String
+    +CPF: String
+    +nome: String
+    +endereco: String
+    +profissao: String
+    +empregadores: String[3]
+    +rendimentos: float[3]
+}
+
+class Cliente extends Usuario {
+    +fazerPedido(): Pedido
+    +consultarPedido(): Pedido
+    +modificarPedido(): Pedido
+    +cancelarPedido(): void
+}
+
+class Agente extends Usuario {
+    +avaliarPedido(pedido: Pedido): bool
+    +modificarPedido(pedido: Pedido): void
+    +criarContrato(pedido: Pedido): Contrato
+}
+
+class Pedido {
+    +id: int
+    +data: Date
+    +status: String
+    +cliente: Cliente
+    +automovel: Automovel
+}
+
+class Automovel {
+    +matricula: String
+    +ano: int
+    +marca: String
+    +modelo: String
+    +placa: String
+    +proprietario: Usuario
+}
+
+class Contrato {
+    +id: int
+    +tipo: String
+    +agente: Agente
+    +automovel: Automovel
+    +pedido: Pedido
+    +registrarAutomovel(): void
+}
+
+class Credito {
+    +id: int
+    +valor: float
+    +banco: Agente
+    +contrato: Contrato
+}
+
+Cliente "1" -- "*" Pedido
+Agente "1" -- "*" Pedido
+Pedido "1" -- "1" Automovel
+Contrato "1" -- "1" Pedido
+Contrato "1" -- "1" Agente
+Contrato "1" -- "1" Automovel
+Credito "1" -- "1" Contrato
+@enduml
