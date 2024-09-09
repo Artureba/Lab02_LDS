@@ -1,0 +1,16 @@
+### História de Usuário - Sistema de Aluguel de Carros
+
+**Título**: Gerenciamento de Aluguel de Carros
+
+**Como** um **cliente**,  
+**Quero** poder visualizar, gerenciar e editar meus aluguéis de veículos,  
+**Para que** eu possa realizar contratos de aluguel de carros de maneira eficiente.
+
+**Contexto**: O sistema de aluguel de carros permitirá que dois tipos de usuários interajam com a aplicação: Clientes e Agentes. Os Clientes poderão gerenciar seus aluguéis, enquanto os Agentes serão responsáveis pela avaliação de propostas, edição de contratos e a gestão de automóveis.
+
+**Critérios de Aceitação**:
+1. O cliente deve ser capaz de visualizar uma lista de aluguéis que estão ativos ou concluídos.
+2. O agente deve poder editar aluguéis e aprovar contratos de aluguel.
+3. O sistema deve permitir a associação de automóveis a contratos de aluguel, com o registro de informações como matrícula, ano, marca, modelo e placa.
+4. Deve haver validação para que somente usuários autenticados possam realizar ações no sistema.
+5. O contrato de aluguel deve indicar a duração, o agente responsável, o automóvel alugado e o status do contrato (pendente ou aprovado).

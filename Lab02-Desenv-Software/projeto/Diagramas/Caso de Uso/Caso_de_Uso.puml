@@ -3,10 +3,10 @@
 
 rectangle "Sistema de Aluguéis" {
     
-    actor Usuário
     
     package Usuarios {
         actor Cliente
+        actor Usuário
         actor Agente
     }
 

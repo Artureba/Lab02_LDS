@@ -1,0 +1,29 @@
+@startuml Sistema de Aluguel de Carros
+
+package "Sistema de Aluguel de Carros" {
+    
+    package Usuarios {
+        class Usuario
+        class Cliente
+        class Agente
+    }
+
+    package Alugueis {
+        class Aluguel
+        class Contrato
+    }
+
+    package Automoveis {
+        class Automovel
+    }
+
+    Usuario <|-- Cliente
+    Usuario <|-- Agente
+
+    Cliente --> Aluguel
+    Agente --> Contrato
+    Contrato --> Automovel
+    Aluguel --> Contrato
+}
+
+@enduml
