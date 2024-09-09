@@ -1,56 +1,67 @@
 @startuml Sistema de Aluguel de Carros
 
-class Usuario{
+interface Usuario{
     -nome: String
     -login: String
     -senha: String
     +gets(): String
     +sets(): void
+    +CRUD()
 }
 
-class Cliente extends Usuario {
+class Cliente implements Usuario {
+    +Cliente(nome, login, senha)
+    +Cliente()
     -RG: String
     -CPF: String
     -endereco: String
     -profissao: String
     -empresa: String
     -salarios: String[3]
-    +fazerPedido(): Pedido
-    +consultarPedido(): Pedido
-    +modificarPedido(): Pedido
-    +cancelarPedido(): void
 }
 
-class Agente extends Usuario{
-    +modificarPedido(pedido: Pedido): void
-    +avaliarPedido(pedido: Pedido): bool
-    +criarContrato(pedido: Pedido): Contrato
-}
 
-class Pedido {
+class Aluguel {
+    +Aluguel(data, status, contrato)
+    +Aluguel()
     -id: int
     -data: Date
     -status: String
-    -cliente: Cliente
-    -automovel: Automovel
+    -contrato : Contrato
+
+    +CRUD()
+}
+
+class Agente implements Usuario{
+   +Agente(nome, login, senha)
+   +Agente()
 }
 
 class Automovel {
+    +Automovel(matricula, ano, marca, modelo, placa)
+    +Automovel()
     -matricula: String
     -ano: int
     -marca: String
     -modelo: String
     -placa: String
-    -proprietario: Usuario
+    +CRUD()
 }
 
 class Contrato {
-    -id: int
-    -tipo: String
-    -agente: Agente
-    -automovel: Automovel
-    -pedido: Pedido
-    +registrarAutomovel(): void
+    +Contrato(id, tipo, agente, automovel, proprietarioVeiculo, pedido)
+    +Contrato()
+    -id                   : int
+    -duracao              : Enum(12, 24, 36, 48)
+    -tipo                 : Enum("Seguro", "Consórcio")
+    -agente               : Agente
+    -automovel            : Automovel
+    -proprietarioVeiculo  : Usuario
+    -pedido               : Pedido
+    +registrarAutomovel() : void
+    +contratoDeCompra()   : Boolean
+    +aprovarContrato()    : Boolean
+    +CRUD()
 }
 
 Cliente "1" -- "*" Pedido
