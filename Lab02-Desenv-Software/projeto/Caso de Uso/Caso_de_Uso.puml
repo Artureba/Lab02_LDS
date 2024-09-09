@@ -1,30 +1,23 @@
-@startuml
+@startuml Sistema de Aluguel de Carros
+
 actor Cliente
 actor Agente
 
 usecase "Cadastro no Sistema" as UC1
-usecase "Criar Pedido de Aluguel" as UC2
-usecase "Modificar Pedido de Aluguel" as UC3
-usecase "Consultar Pedido de Aluguel" as UC4
-usecase "Cancelar Pedido de Aluguel" as UC5
-usecase "Avaliar Pedido de Aluguel" as UC6
-usecase "Executar Contrato" as UC7
-usecase "Analisar Pedido Financeiramente" as UC8
-usecase "Registrar Automóvel" as UC9
-usecase "Gerenciar Contrato de Crédito" as UC10
+usecase "Gerenciar Pedido de Aluguel" as UC2
+usecase "Editar Pedido de Aluguel" as UC3
+usecase "Avaliar Pedido de Aluguel" as UC4
+usecase "Gerenciar Contrato" as UC5
+usecase "Registrar Automóvel" as UC6
 
-Cliente --> UC1 : "Cadastro"
-Cliente --> UC2 : "Criar Pedido"
-Cliente --> UC3 : "Modificar Pedido"
-Cliente --> UC4 : "Consultar Pedido"
-Cliente --> UC5 : "Cancelar Pedido"
+Cliente --> UC1
+Cliente --> UC2
 
-Agente --> UC6 : "Modificar Pedido"
-Agente --> UC8 : "Analisar Pedido"
-Agente --> UC7 : "Executar Contrato"
-Agente --> UC9 : "Registrar Automóvel"
-Agente --> UC10 : "Gerenciar Contrato de Crédito"
+Agente --> UC1
+Agente --> UC3
+Agente --> UC4
+Agente --> UC5
 
-UC8 --> UC7 : "Aprovação do Pedido"
+UC5 --> UC6 : "<<include>>"
 
 @enduml
