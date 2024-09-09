@@ -1,23 +1,28 @@
 @startuml Sistema de Aluguel de Carros
 
-actor Cliente
-actor Agente
 
-usecase "Cadastro no Sistema" as UC1
-usecase "Gerenciar Pedido de Aluguel" as UC2
-usecase "Editar Pedido de Aluguel" as UC3
-usecase "Avaliar Pedido de Aluguel" as UC4
-usecase "Gerenciar Contrato" as UC5
-usecase "Registrar Automóvel" as UC6
+rectangle "Sistema de Aluguéis" {
+    
+    actor Usuário
+    
+    package Usuarios {
+        actor Cliente
+        actor Agente
+    }
 
-Cliente --> UC1
-Cliente --> UC2
+    Usuário  <|-- Agente  
+    Usuário  <|-- Cliente  
 
-Agente --> UC1
-Agente --> UC3
-Agente --> UC4
-Agente --> UC5
+    usecase "Gerenciar Alugueis"   as UC2
+    usecase "Editar aluguel"      as UC3
+    usecase "Avaliar proposta"     as UC4
+    usecase "Gerenciar Automóveis" as UC6
 
-UC5 --> UC6 : "<<include>>"
+    Cliente --> UC2
+
+    Agente --> UC3
+    Agente --> UC4
+    Agente --> UC6
+}
 
 @enduml
