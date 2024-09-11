@@ -27,7 +27,7 @@ class Aluguel {
     -id: int
     -data: Date
     -status: String
-    -contrato : Contrato
+    -contrato : Documento
 
     +CRUD()
 }
@@ -39,8 +39,22 @@ enum Prazo {
     48
 }
 
+enum Tipo {
+    Seguro
+    Crédito
+    Aluguel
+    Compra
+}
+
+enum PapelAgente {
+    Empresa
+    Banco
+}
+
 class Agente implements Usuario{
-   -tipo: String[EMPRESA, BANCO]
+   -tipo: PapelAgente[]
+   -CNPJ
+   -Inscricao
    +Agente(nome, login, senha)
    +Agente()
 }
@@ -56,25 +70,38 @@ class Automovel {
     +CRUD()
 }
 
-class Contrato {
+class Contrato implements DocumentoComercial{
     +Contrato(id, tipo, agente, automovel, proprietarioVeiculo)
     +Contrato()
+    -contratoCredito      : Contrato
     -id                   : int
-    -duracao              : Prazo
-    -tipo                 : String
-    -agente               : Agente
-    -automovel            : Automovel
-    -status               : String
     -proprietarioVeiculo  : Usuario
-    +contratoDeCompra()   : Boolean
-    +aprovarContrato()    : Boolean
     +CRUD()
 }
 
+class Pedido implements DocumentoComercial{
+    +Documento(id, tipo, agente, automovel, proprietarioVeiculo)
+    +Documento()
+    -id                   : int
+    -proprietarioVeiculo  : Usuario
+    +CRUD()
+}
 
-Contrato  "1" -- "1" Agente
-Contrato  "1" -- "1" Cliente
-Automovel "1" -- "2" Contrato
+interface DocumentoComercial {
+    -status               : String
+    -nDocumento           : String
+    -duracao              : Prazo
+    -tipo                 : Tipo
+    -proponente           : Usuario
+    -contratante          : Usuario
+    -objetoContrato       : Automovel
+    +aprovarDocumento()   : Boolean
+}
+
+Agente    "1" -- "n" Contrato
+Cliente   "1" -- "n" Pedido
+Contrato  "1" -- "1" Pedido
+Automovel "1" -- "1" Aluguel
 Aluguel   "1" -- "1" Contrato
  
 @enduml
