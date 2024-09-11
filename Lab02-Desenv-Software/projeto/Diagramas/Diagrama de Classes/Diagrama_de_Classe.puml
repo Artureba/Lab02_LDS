@@ -32,8 +32,15 @@ class Aluguel {
     +CRUD()
 }
 
+enum Prazo {
+    12
+    24
+    36
+    48
+}
+
 class Agente implements Usuario{
-   -tipo: Enum(EMPRESA, BANCO)
+   -tipo: String[EMPRESA, BANCO]
    +Agente(nome, login, senha)
    +Agente()
 }
@@ -53,11 +60,11 @@ class Contrato {
     +Contrato(id, tipo, agente, automovel, proprietarioVeiculo)
     +Contrato()
     -id                   : int
-    -duracao              : Enum(12, 24, 36, 48)
-    -tipo                 : Enum("Seguro", "Aluguel")
+    -duracao              : Prazo
+    -tipo                 : String
     -agente               : Agente
     -automovel            : Automovel
-    -status               : Enum("Pendente", Aprovado)
+    -status               : String
     -proprietarioVeiculo  : Usuario
     +contratoDeCompra()   : Boolean
     +aprovarContrato()    : Boolean
