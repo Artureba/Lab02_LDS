@@ -1,16 +1,13 @@
 package main.java.br.com.car_rental_system.controller;
 
-import br.com.car_rental_system.entity.Cliente;
-import br.com.car_rental_system.service.ClienteService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
-import java.util.Optional;
 
 @RestController
 @RequestMapping("/api/clientes")
+@CrossOrigin(origins = "http://localhost:3000")  // Se React rodar em localhost:3000
 public class ClienteController {
 
     @Autowired
@@ -22,33 +19,23 @@ public class ClienteController {
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<Cliente> getClienteById(@PathVariable Long id) {
-        Optional<Cliente> cliente = clienteService.getClienteById(id);
-        if (cliente.isPresent()) {
-            return ResponseEntity.ok(cliente.get());
-        } else {
-            return ResponseEntity.notFound().build();
-        }
+    public Cliente getClienteById(@PathVariable Long id) {
+        return clienteService.getClienteById(id);
     }
 
     @PostMapping
     public Cliente createCliente(@RequestBody Cliente cliente) {
-        return clienteService.createCliente(cliente);
+        return clienteService.saveCliente(cliente);
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<Cliente> updateCliente(@PathVariable Long id, @RequestBody Cliente clienteDetails) {
-        Cliente updatedCliente = clienteService.updateCliente(id, clienteDetails);
-        if (updatedCliente != null) {
-            return ResponseEntity.ok(updatedCliente);
-        } else {
-            return ResponseEntity.notFound().build();
-        }
+    public Cliente updateCliente(@PathVariable Long id, @RequestBody Cliente cliente) {
+        cliente.setId(id); // Definindo o ID para o Cliente existente
+        return clienteService.saveCliente(cliente);
     }
 
     @DeleteMapping("/{id}")
-    public ResponseEntity<Void> deleteCliente(@PathVariable Long id) {
+    public void deleteCliente(@PathVariable Long id) {
         clienteService.deleteCliente(id);
-        return ResponseEntity.noContent().build();
     }
 }
