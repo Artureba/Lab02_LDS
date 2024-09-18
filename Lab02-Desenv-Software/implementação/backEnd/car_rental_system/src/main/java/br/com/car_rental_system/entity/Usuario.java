@@ -1,4 +1,4 @@
-package main.java.br.com.car_rental_system.entity;
+package br.com.car_rental_system.entity;
 
 import jakarta.persistence.MappedSuperclass;
 

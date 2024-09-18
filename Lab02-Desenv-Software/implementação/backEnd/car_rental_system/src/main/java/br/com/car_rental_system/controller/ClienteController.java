@@ -1,5 +1,7 @@
-package main.java.br.com.car_rental_system.controller;
+package br.com.car_rental_system.controller;
 
+import br.com.car_rental_system.entity.Cliente;
+import br.com.car_rental_system.service.ClienteService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -7,7 +9,7 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/api/clientes")
-@CrossOrigin(origins = "http://localhost:3000")  // Se React rodar em localhost:3000
+@CrossOrigin(origins = "http://localhost:3000")  // Para aceitar requisições do React no localhost:3000
 public class ClienteController {
 
     @Autowired
@@ -30,7 +32,7 @@ public class ClienteController {
 
     @PutMapping("/{id}")
     public Cliente updateCliente(@PathVariable Long id, @RequestBody Cliente cliente) {
-        cliente.setId(id); // Definindo o ID para o Cliente existente
+        // cliente.setId(id);
         return clienteService.saveCliente(cliente);
     }
 

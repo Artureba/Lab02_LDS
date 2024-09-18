@@ -1,5 +1,5 @@
-package br.com.car_rental_system.entity;
+// package br.com.car_rental_system.entity;
 
-public class Document {
+// public class Document {
 
-}
+// }
