@@ -4,8 +4,6 @@ import axios from 'axios';
 interface Cliente {
   id?: number;
   nome: string;
-  login: string;
-  senha: string;
   rg: string;
   cpf: string;
   endereco: string;
@@ -18,8 +16,6 @@ const ClienteForm: React.FC = () => {
   const [clientes, setClientes] = useState<Cliente[]>([]);
   const [cliente, setCliente] = useState<Cliente>({
     nome: '',
-    login: '',
-    senha: '',
     rg: '',
     cpf: '',
     endereco: '',
@@ -58,8 +54,6 @@ const ClienteForm: React.FC = () => {
     }
     setCliente({
       nome: '',
-      login: '',
-      senha: '',
       rg: '',
       cpf: '',
       endereco: '',
@@ -96,24 +90,6 @@ const ClienteForm: React.FC = () => {
           value={cliente.nome}
           onChange={handleChange}
           placeholder="Nome"
-          required
-          className="w-full p-2 border border-gray-300 rounded-md focus:outline-none focus:ring focus:ring-blue-300"
-        />
-        <input
-          type="text"
-          name="login"
-          value={cliente.login}
-          onChange={handleChange}
-          placeholder="Login"
-          required
-          className="w-full p-2 border border-gray-300 rounded-md focus:outline-none focus:ring focus:ring-blue-300"
-        />
-        <input
-          type="password"
-          name="senha"
-          value={cliente.senha}
-          onChange={handleChange}
-          placeholder="Senha"
           required
           className="w-full p-2 border border-gray-300 rounded-md focus:outline-none focus:ring focus:ring-blue-300"
         />

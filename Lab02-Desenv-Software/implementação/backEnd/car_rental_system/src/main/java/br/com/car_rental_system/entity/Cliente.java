@@ -1,10 +1,8 @@
 package br.com.car_rental_system.entity;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
-import jakarta.persistence.Table;
+import jakarta.persistence.*;
+import java.util.ArrayList;
+import java.util.List;
 
 @Entity
 @Table(name = "clientes")
@@ -20,6 +18,19 @@ public class Cliente extends Usuario {
     private String profissao;
     private String empresa;
     private String[] salarios = new String[3];
+
+    @OneToMany(cascade = CascadeType.ALL)
+    @JoinColumn(name = "cliente_id")
+    private List<UsuarioAcesso> usuariosAcesso = new ArrayList<>();
+
+    @PrePersist
+    public void criarUsuarioAcesso() {
+        UsuarioAcesso usuarioAcesso = new UsuarioAcesso();
+        usuarioAcesso.setNome(this.getNome());
+        usuarioAcesso.setLogin(this.getLogin());
+        usuarioAcesso.setSenha("senha_padrao"); // Define uma senha padrão
+        usuariosAcesso.add(usuarioAcesso);
+    }
 
     // Getters e Setters
     public Long getId() {
@@ -76,5 +87,13 @@ public class Cliente extends Usuario {
 
     public void setSalarios(String[] salarios) {
         this.salarios = salarios;
+    }
+
+    public List<UsuarioAcesso> getUsuariosAcesso() {
+        return usuariosAcesso;
+    }
+
+    public void setUsuariosAcesso(List<UsuarioAcesso> usuariosAcesso) {
+        this.usuariosAcesso = usuariosAcesso;
     }
 }

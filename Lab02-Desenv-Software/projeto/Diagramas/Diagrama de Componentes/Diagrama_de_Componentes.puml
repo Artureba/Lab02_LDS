@@ -1,0 +1,17 @@
+@startuml
+
+package "Sistema de Aluguel de Carros" {
+    
+    [Frontend] -0)- [Backend]
+    [Backend] -0)- [Banco de Dados]:<<postgreSQL>>
+
+    [Backend] -0)- [Gerenciador de Aluguéis]
+    [Backend] -0)- [Gerenciador de Propostas]
+    [Backend] -0)- [Gerenciador de Automóveis]
+
+    [Cliente] -(0- [Frontend]
+    [Agente] -(0- [Frontend]
+
+}
+
+@enduml
