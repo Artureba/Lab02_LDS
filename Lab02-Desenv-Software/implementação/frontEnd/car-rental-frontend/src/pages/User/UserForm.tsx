@@ -12,14 +12,14 @@ const UsuarioForm: React.FC = () => {
   const [usuario, setUsuario] = useState<Usuario>({ login: '', senha: '' });
   const [editando, setEditando] = useState(false);
 
-  const carregarUsuarios = async () => {
-    const response = await axios.get('http://localhost:8080/api/usuarios');
-    setUsuarios(response.data);
-  };
+  // const carregarUsuarios = async () => {
+  //   const response = await axios.get('http://localhost:8080/api/usuarios');
+  //   setUsuarios(response.data);
+  // };
 
-  useEffect(() => {
-    carregarUsuarios();
-  }, []);
+  // useEffect(() => {
+  //   carregarUsuarios();
+  // }, []);
 
   const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = event.target;
@@ -35,7 +35,7 @@ const UsuarioForm: React.FC = () => {
     }
     setUsuario({ login: '', senha: '' });
     setEditando(false);
-    carregarUsuarios();
+    // carregarUsuarios();
   };
 
   const editarUsuario = (usuarioSelecionado: Usuario) => {
@@ -46,7 +46,7 @@ const UsuarioForm: React.FC = () => {
   const excluirUsuario = async (id: number | undefined) => {
     if (id) {
       await axios.delete(`http://localhost:8080/api/usuarios/${id}`);
-      carregarUsuarios();
+      // carregarUsuarios();
     }
   };
 

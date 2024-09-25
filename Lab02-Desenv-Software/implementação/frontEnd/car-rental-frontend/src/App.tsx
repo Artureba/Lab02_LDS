@@ -1,10 +1,11 @@
 import './App.css';
 import RequestForm from './pages/Request.tsx';
 import ClienteForm from './pages/Cliente/ClienteForm.tsx';
+import UsuarioForm from './pages/User/UserForm.tsx';
 import React, { useState } from 'react';
 
 function App() {
-  const [currentPage, setCurrentPage] = useState<'request' | 'cliente'>('request'); // Estado para controlar qual tela está sendo exibida
+  const [currentPage, setCurrentPage] = useState<'request' | 'cliente' | 'usuario'>('request'); // Estado para controlar qual tela está sendo exibida
 
   return (
     <div className="App">
@@ -27,6 +28,14 @@ function App() {
               Cliente
             </button>
           </li>
+          <li>
+            <button 
+              onClick={() => setCurrentPage('usuario')} 
+              className="text-white"
+            >
+              Usuário
+            </button>
+          </li>
         </ul>
       </nav>
 
@@ -34,6 +43,7 @@ function App() {
         {/* Renderização condicional dos formulários */}
         {currentPage === 'request' && <RequestForm />}
         {currentPage === 'cliente' && <ClienteForm />}
+        {currentPage === 'usuario' && <UsuarioForm />}
       </div>
     </div>
   );
