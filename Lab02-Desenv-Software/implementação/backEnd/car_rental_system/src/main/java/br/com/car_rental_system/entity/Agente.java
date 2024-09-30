@@ -4,6 +4,8 @@ import jakarta.persistence.*;
 import java.util.ArrayList;
 import java.util.List;
 
+import br.com.car_rental_system.enuns.PapelAgente;
+
 @Entity
 @Table(name = "agentes")
 public class Agente extends Usuario {
@@ -11,8 +13,13 @@ public class Agente extends Usuario {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-    
-    private EnumTipo tipo;
+
+    @ElementCollection(targetClass = PapelAgente.class)
+    @CollectionTable(name = "agente_tipos", joinColumns = @JoinColumn(name = "agente_id"))
+    @Enumerated(EnumType.STRING)  // Armazenar os enums como string ou alterar para ORDINAL conforme sua necessidade
+    @Column(name = "tipo")
+    private List<PapelAgente> tipo = new ArrayList<>();
+
     private String cnpj;
     private String inscricao;
 
@@ -25,7 +32,7 @@ public class Agente extends Usuario {
         UsuarioAcesso usuarioAcesso = new UsuarioAcesso();
         usuarioAcesso.setNome(this.getNome());
         usuarioAcesso.setLogin(this.getLogin());
-        usuarioAcesso.setSenha("senha_padrao"); // Define uma senha padrão
+        usuarioAcesso.setSenha("12345"); // Define uma senha padrão
         usuariosAcesso.add(usuarioAcesso);
     }
 
@@ -38,11 +45,11 @@ public class Agente extends Usuario {
         this.id = id;
     }
 
-    public EnumTipo getTipo() {
+    public List<PapelAgente> getTipo() {
         return tipo;
     }
-
-    public void setTipo(EnumTipo tipo) {
+    
+    public void setTipo(List<PapelAgente> tipo) {
         this.tipo = tipo;
     }
 

@@ -1,6 +1,6 @@
 package br.com.car_rental_system.controller;
 
-import br.com.car_rental_system.entity.Usuario;
+import br.com.car_rental_system.entity.UsuarioAcesso;
 import br.com.car_rental_system.service.UsuarioService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
@@ -16,24 +16,28 @@ public class UsuarioController {
     private UsuarioService UsuarioService;
 
     @GetMapping
-    public List<Usuario> getAllUsuarios() {
+    public List<UsuarioAcesso> getAllUsuarios() {
         return UsuarioService.getAllUsuarios();
     }
 
     @GetMapping("/{id}")
-    public Usuario getUsuarioById(@PathVariable Long id) {
+    public UsuarioAcesso getUsuarioById(@PathVariable Long id) {
         return UsuarioService.getUsuarioById(id);
     }
 
+    @GetMapping("login/{login}")
+    public Boolean getUsuarioByLogin(@PathVariable String login) {
+        return UsuarioService.getUsuarioByLogin(login);
+    }
+
     @PostMapping
-    public Usuario createUsuario(@RequestBody Usuario Usuario) {
-        return UsuarioService.saveUsuario(Usuario);
+    public UsuarioAcesso createUsuario(@RequestBody UsuarioAcesso UsuarioAcesso) {
+        return UsuarioService.saveUsuario(UsuarioAcesso);
     }
 
     @PutMapping("/{id}")
-    public Usuario updateUsuario(@PathVariable Long id, @RequestBody Usuario Usuario) {
-        // Usuario.setId(id);
-        return UsuarioService.saveUsuario(Usuario);
+    public UsuarioAcesso updateUsuario(@PathVariable Long id, @RequestBody UsuarioAcesso UsuarioAcesso) {
+        return UsuarioService.saveUsuario(UsuarioAcesso);
     }
 
     @DeleteMapping("/{id}")

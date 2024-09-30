@@ -1,5 +1,9 @@
 package br.com.car_rental_system.repository;
 
-public class RequestRepository {
+import org.springframework.data.jpa.repository.JpaRepository;
+
+import br.com.car_rental_system.entity.Document;
+
+public interface RequestRepository extends JpaRepository<Document, Long> {
 
 }

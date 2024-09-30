@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
+import { TipoAgente } from '../../utils/enums/Enum.tsx';
 
 interface UsuarioAcesso {
   id?: number;
@@ -10,7 +11,8 @@ interface UsuarioAcesso {
 
 interface Agente {
   id?: number;
-  tipo: string; // Tipo poderia ser uma enumeração, por simplicidade usamos string
+  tipo: string[]; // Tipo poderia ser uma enumeração, por simplicidade usamos string
+  nome: string;
   cnpj: string;
   inscricao: string;
   usuariosAcesso: UsuarioAcesso[];
@@ -19,7 +21,8 @@ interface Agente {
 const AgenteForm: React.FC = () => {
   const [agentes, setAgentes] = useState<Agente[]>([]);
   const [agente, setAgente] = useState<Agente>({
-    tipo: '',
+    tipo: [],
+    nome: '',
     cnpj: '',
     inscricao: '',
     usuariosAcesso: [{
@@ -42,12 +45,37 @@ const AgenteForm: React.FC = () => {
   const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = event.target;
     setAgente({ ...agente, [name]: value });
+    if (name === 'nome') {
+      agente['usuariosAcesso'][0]['nome'] = value;
+    }
+      console.log(agente);
   };
 
-  const handleUsuarioAcessoChange = (event: React.ChangeEvent<HTMLInputElement>, index: number) => {
+  const handleSelectChange = (event: React.ChangeEvent<HTMLSelectElement>) => {
+      const { name, options } = event.target;
+      const value = Array.from(options)
+          .filter(option => option.selected)
+          .map(option => option.value as TipoAgente); // Ensure this is cast correctly
+      setAgente({ ...agente, [name]: value });
+  };
+
+  const handleUsuarioAcessoChange = async (event: React.ChangeEvent<HTMLInputElement>, index: number) => {
     const { name, value } = event.target;
     const novosUsuariosAcesso = [...agente.usuariosAcesso];
+
+    if (name === 'login') {
+      const response = await axios.get(`http://localhost:8080/api/usuarios/login/${value}`);
+      if (response.data) {
+      alert('Login já existe na plataforma!');
+      return;
+      }
+    }
+
+    console.log("ok")
     novosUsuariosAcesso[index] = { ...novosUsuariosAcesso[index], [name]: value };
+    setAgente({ ...agente, usuariosAcesso: novosUsuariosAcesso });
+    novosUsuariosAcesso[index] = { ...novosUsuariosAcesso[index], [name]: value };
+
     setAgente({ ...agente, usuariosAcesso: novosUsuariosAcesso });
   };
 
@@ -59,7 +87,8 @@ const AgenteForm: React.FC = () => {
       await axios.post('http://localhost:8080/api/agentes', agente);
     }
     setAgente({
-      tipo: '',
+      tipo: [],
+      nome: '',
       cnpj: '',
       inscricao: '',
       usuariosAcesso: [{
@@ -69,6 +98,7 @@ const AgenteForm: React.FC = () => {
       }],
     });
     setEditando(false);
+
     carregarAgentes();
   };
 
@@ -91,12 +121,27 @@ const AgenteForm: React.FC = () => {
       </h2>
 
       <form onSubmit={handleSubmit} className="space-y-4">
-        <input
-          type="text"
+        <select
           name="tipo"
           value={agente.tipo}
+          onChange={handleSelectChange}
+          multiple
+          required
+          className="w-full p-2 border border-gray-300 rounded-md focus:outline-none focus:ring focus:ring-blue-300"
+        >
+          {Object.values(TipoAgente).map((tipo) => (
+            <option key={tipo} value={tipo} className="p-2">
+              {tipo}
+            </option>
+          ))}
+        </select>
+
+        <input
+          type="text"
+          name="nome"
+          value={agente.nome}
           onChange={handleChange}
-          placeholder="Tipo"
+          placeholder="Nome"
           required
           className="w-full p-2 border border-gray-300 rounded-md focus:outline-none focus:ring focus:ring-blue-300"
         />
@@ -118,19 +163,9 @@ const AgenteForm: React.FC = () => {
           required
           className="w-full p-2 border border-gray-300 rounded-md focus:outline-none focus:ring focus:ring-blue-300"
         />
-
         <h3 className="text-xl font-semibold mt-4">Usuário de Acesso</h3>
         {agente.usuariosAcesso.map((usuario, index) => (
           <div key={index} className="space-y-2">
-            <input
-              type="text"
-              name="nome"
-              value={usuario.nome}
-              onChange={(e) => handleUsuarioAcessoChange(e, index)}
-              placeholder="Nome do Usuário"
-              required
-              className="w-full p-2 border border-gray-300 rounded-md focus:outline-none focus:ring focus:ring-blue-300"
-            />
             <input
               type="text"
               name="login"
@@ -161,7 +196,7 @@ const AgenteForm: React.FC = () => {
       <ul className="mt-4 space-y-2">
         {agentes.map((agente) => (
           <li key={agente.id} className="flex justify-between items-center p-2 bg-white rounded-md shadow-sm">
-            <span>{agente.tipo} - {agente.cnpj}</span>
+            <span>{'[' + agente.id + ']'} {agente.nome} - {'CNPJ: ' + agente.cnpj}</span>
             <div>
               <button onClick={() => editarAgente(agente)} className="text-blue-500 hover:underline mr-2">Editar</button>
               <button onClick={() => excluirAgente(agente.id)} className="text-red-500 hover:underline">Excluir</button>

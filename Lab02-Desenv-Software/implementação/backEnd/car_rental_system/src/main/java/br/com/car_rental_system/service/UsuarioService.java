@@ -1,6 +1,6 @@
 package br.com.car_rental_system.service;
 
-import br.com.car_rental_system.entity.Usuario;
+import br.com.car_rental_system.entity.UsuarioAcesso;
 import br.com.car_rental_system.repository.UsuarioRepository;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,19 +14,23 @@ public class UsuarioService {
     @Autowired
     private UsuarioRepository UsuarioRepository;
 
-    public List<Usuario> getAllUsuarios() {
+    public List<UsuarioAcesso> getAllUsuarios() {
         return UsuarioRepository.findAll();
     }
 
-    public Usuario getUsuarioById(Long id) {
+    public UsuarioAcesso getUsuarioById(Long id) {
         return UsuarioRepository.findById(id).orElse(null);
     }
 
-    public Usuario saveUsuario(Usuario Usuario) {
-        return UsuarioRepository.save(Usuario);
+    public UsuarioAcesso saveUsuario(UsuarioAcesso UsuarioAcesso) {
+        return UsuarioRepository.save(UsuarioAcesso);
     }
 
     public void deleteUsuario(Long id) {
         UsuarioRepository.deleteById(id);
+    }
+
+    public Boolean getUsuarioByLogin(String login) {
+        return UsuarioRepository.findByLogin(login) != null;
     }
 }
