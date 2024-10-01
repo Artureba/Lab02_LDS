@@ -1,16 +1,20 @@
+diagrama de componentes
 @startuml
 
 package "Sistema de Aluguel de Carros" {
     
-    [Frontend] -0)- [Backend]
-    [Backend] -0)- [Banco de Dados]:<<postgreSQL>>
+    [Navegador] <.. [API]
 
-    [Backend] -0)- [Gerenciador de Aluguéis]
-    [Backend] -0)- [Gerenciador de Propostas]
-    [Backend] -0)- [Gerenciador de Automóveis]
+    [API] -(0- [Gerenciador de Aluguéis]
+    [API] -(0- [Gerenciador de Propostas]
+    [API] -(0- [Gerenciador de Automóveis]
 
-    [Cliente] -(0- [Frontend]
-    [Agente] -(0- [Frontend]
+    [Gerenciador de Aluguéis] -(0- [PostgreSQL]:<<TCP/IP>>
+    [Gerenciador de Propostas] -(0- [PostgreSQL]:<<TCP/IP>>
+    [Gerenciador de Automóveis] -(0- [PostgreSQL]:<<TCP/IP>>
+
+    [Cliente] <.. [Navegador]
+    [Agente] <.. [Navegador]
 
 }
 

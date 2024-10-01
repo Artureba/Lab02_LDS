@@ -1,0 +1,35 @@
+diagrama de implantacao
+@startuml
+
+node "Cliente: Navegador" {
+    [Cliente]
+}
+
+node "Agente: Navegador" {
+    [Agente]
+}
+
+node "Servidor de Aplicação" {
+    [Gerenciador de Aluguéis] 
+    [Gerenciador de Propostas] 
+    [Gerenciador de Automóveis]
+}
+
+node "Servidor de Banco de Dados" {
+    [PostgreSQL] 
+}
+
+[Cliente: Navegador] -- [Servidor de Aplicação]: <<HTTP>>
+[Agente: Navegador] -- [Servidor de Aplicação]: <<HTTP>>
+
+[Cliente] -(0- [Gerenciador de Aluguéis]
+[Agente] -(0- [Gerenciador de Propostas]
+[Agente] -(0- [Gerenciador de Automóveis]
+
+[Servidor de Aplicação] -- [Servidor de Banco de Dados]: <<psqlODBC>>
+
+[Gerenciador de Aluguéis] -(0- [PostgreSQL]
+[Gerenciador de Propostas] -(0- [PostgreSQL]
+[Gerenciador de Automóveis] -(0- [PostgreSQL]
+
+@enduml
