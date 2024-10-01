@@ -1,16 +1,71 @@
-### História de Usuário - Sistema de Aluguel de Carros
+### Histórias de Usuário - Sistema de Aluguel de Carros
 
-**Título**: Gerenciamento de Aluguel de Carros
+#### História de Usuário 1: Gerenciar Aluguéis
 
-**Como** um **cliente**,  
-**Quero** poder visualizar, gerenciar e editar meus aluguéis de veículos,  
-**Para que** eu possa realizar contratos de aluguel de carros de maneira eficiente.
+**Como** cliente,  
+**Quero** gerenciar meus aluguéis de carro,  
+**Para que** eu possa reservar e modificar aluguéis conforme minha necessidade.
 
-**Contexto**: O sistema de aluguel de carros permitirá que dois tipos de usuários interajam com a aplicação: Clientes e Agentes. Os Clientes poderão gerenciar seus aluguéis, enquanto os Agentes serão responsáveis pela avaliação de propostas, edição de contratos e a gestão de automóveis.
+**Critérios de Aceitação:**
+- O cliente pode visualizar os aluguéis ativos e históricos (UC2).
+- O cliente pode reservar um novo carro e cancelar aluguéis existentes.
 
-**Critérios de Aceitação**:
-1. O cliente deve ser capaz de visualizar uma lista de aluguéis que estão ativos ou concluídos.
-2. O agente deve poder editar aluguéis e aprovar contratos de aluguel.
-3. O sistema deve permitir a associação de automóveis a contratos de aluguel, com o registro de informações como matrícula, ano, marca, modelo e placa.
-4. Deve haver validação para que somente usuários autenticados possam realizar ações no sistema.
-5. O contrato de aluguel deve indicar a duração, o agente responsável, o automóvel alugado e o status do contrato (pendente ou aprovado).
+---
+
+#### História de Usuário 2: Editar Aluguel
+
+**Como** agente,  
+**Quero** editar as informações de um aluguel,  
+**Para que** eu possa corrigir dados ou atualizar informações conforme necessário.
+
+**Critérios de Aceitação:**
+- O agente pode editar os detalhes de um aluguel, como datas e tipo de carro (UC3).
+- As alterações devem ser salvas e refletidas no sistema em tempo real.
+
+---
+
+#### História de Usuário 3: Avaliar Proposta
+
+**Como** agente,  
+**Quero** avaliar propostas de aluguel,  
+**Para que** eu possa aprovar ou recusar solicitações dos clientes.
+
+**Critérios de Aceitação:**
+- O agente deve receber notificações de novas propostas para avaliação (UC4).
+- O agente pode aprovar ou rejeitar propostas, e o cliente deve ser notificado sobre a decisão.
+
+---
+
+#### História de Usuário 4: Gerenciar Automóveis
+
+**Como** agente,  
+**Quero** gerenciar a lista de automóveis disponíveis para aluguel,  
+**Para que** os clientes possam ver os veículos que podem alugar.
+
+**Critérios de Aceitação:**
+- O agente pode adicionar, editar ou remover informações sobre automóveis no sistema (UC6).
+- As alterações devem ser refletidas na lista de veículos disponíveis para os clientes em tempo real.
+
+---
+
+#### História de Usuário 5: Consultar Aluguéis
+
+**Como** cliente,  
+**Quero** consultar os detalhes dos meus aluguéis ativos,  
+**Para que** eu possa acompanhar o status e as condições do meu aluguel.
+
+**Critérios de Aceitação:**
+- O sistema deve mostrar informações detalhadas sobre os aluguéis ativos do cliente (UC2).
+- Os detalhes devem incluir datas, tipo de veículo e status do aluguel.
+
+---
+
+#### História de Usuário 6: Notificar Cliente sobre Aluguel
+
+**Como** sistema,  
+**Quero** notificar o cliente sobre o status do seu aluguel,  
+**Para que** ele esteja sempre atualizado sobre sua reserva.
+
+**Critérios de Aceitação:**
+- O sistema deve enviar notificações ao cliente quando um aluguel for aprovado ou alterado (UC3).
+- O cliente deve receber um resumo dos detalhes do aluguel por e-mail ou mensagem.
