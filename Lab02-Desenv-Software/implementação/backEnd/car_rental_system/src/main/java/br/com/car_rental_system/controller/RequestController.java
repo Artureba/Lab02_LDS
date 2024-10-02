@@ -1,6 +1,6 @@
 package br.com.car_rental_system.controller;
 
-import br.com.car_rental_system.entity.Document;
+import br.com.car_rental_system.entity.PurchaseContract;
 import br.com.car_rental_system.service.RequestService;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,22 +17,22 @@ public class RequestController {
     private RequestService requestService;
 
     @GetMapping
-    public List<Document> getAllDocuments() {
+    public List<PurchaseContract> getAllDocuments() {
         return requestService.getAllDocuments();
     }
 
     @GetMapping("/{id}")
-    public Document getDocumentById(@PathVariable Long id) {
+    public PurchaseContract getDocumentById(@PathVariable Long id) {
         return requestService.getDocumentById(id);
     }
 
     @PostMapping
-    public Document createDocument(@RequestBody Document cliente) {
+    public PurchaseContract createDocument(@RequestBody PurchaseContract cliente) {
         return requestService.saveDocument(cliente);
     }
 
     @PutMapping("/{id}")
-    public Document updateDocument(@PathVariable Long id, @RequestBody Document cliente) {
+    public PurchaseContract updateDocument(@PathVariable Long id, @RequestBody PurchaseContract cliente) {
         return requestService.saveDocument(cliente);
     }
 

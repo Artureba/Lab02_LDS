@@ -9,15 +9,15 @@ import jakarta.persistence.MappedSuperclass;
 public abstract class DocumentoComercial {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id; // Add this ID field
-    private String status;
-    private String nDocumento;
-    private String duracao;
-    private String tipo;
-    private String proponente;     // CPF
-    private String contratante;    // CPNJ    
-    private String objetoContrato;  // PLACA   
-    private Double valorTotal;
+    private Long id;
+    private String  status;
+    private String  nDocumento;
+    private String  duracao;
+    private String  tipo;
+    private Agente  proponente;     // idAgente
+    private Cliente contratante;    // idCliente    
+    private String  objetoContrato;  // idVeiculo   
+    private Double  valorTotal;
     
     
     

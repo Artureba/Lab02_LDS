@@ -1,6 +1,6 @@
 package br.com.car_rental_system.service;
 
-import br.com.car_rental_system.entity.Document;
+import br.com.car_rental_system.entity.PurchaseContract;
 import br.com.car_rental_system.repository.RequestRepository;
 
 // import br.com.car_rental_system.repository.DocumentRepository;
@@ -15,15 +15,15 @@ public class RequestService {
     @Autowired
     private RequestRepository requestRepository;
 
-    public List<Document> getAllDocuments() {
+    public List<PurchaseContract> getAllDocuments() {
         return requestRepository.findAll();
     }
 
-    public Document getDocumentById(Long id) {
+    public PurchaseContract getDocumentById(Long id) {
         return requestRepository.findById(id).orElse(null);
     }
 
-    public Document saveDocument(Document document) {
+    public PurchaseContract saveDocument(PurchaseContract document) {
         return requestRepository.save(document);
     }
 
