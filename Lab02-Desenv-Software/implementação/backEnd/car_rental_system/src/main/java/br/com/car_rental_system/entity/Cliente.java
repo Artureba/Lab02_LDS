@@ -11,16 +11,19 @@ public class Cliente extends Usuario {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-    
+
     private String rg;
     private String cpf;
     private String endereco;
     private String profissao;
     private String empresa;
-    private String[] salarios = new String[3];
+    
+    @ElementCollection(targetClass = String.class)
+    @CollectionTable(name = "salarios", joinColumns = @JoinColumn(name = "cliente_id"))
+    private List<String> salarios = new ArrayList<>();
 
-    @OneToMany(cascade = CascadeType.ALL)
-    @JoinColumn(name = "cliente_id")
+    @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true)
+    @JoinColumn(name = "cliente_id")  // Relacionamento com UsuarioAcesso
     private List<UsuarioAcesso> usuariosAcesso = new ArrayList<>();
 
     @PrePersist
@@ -28,7 +31,7 @@ public class Cliente extends Usuario {
         UsuarioAcesso usuarioAcesso = new UsuarioAcesso();
         usuarioAcesso.setNome(this.getNome());
         usuarioAcesso.setLogin(this.getLogin());
-        usuarioAcesso.setSenha("senha_padrao"); // Define uma senha padrão
+        usuarioAcesso.setSenha("senha_padrao");
         usuariosAcesso.add(usuarioAcesso);
     }
 
@@ -81,11 +84,11 @@ public class Cliente extends Usuario {
         this.empresa = empresa;
     }
 
-    public String[] getSalarios() {
+    public List<String> getSalarios() {
         return salarios;
     }
 
-    public void setSalarios(String[] salarios) {
+    public void setSalarios(List<String> salarios) {
         this.salarios = salarios;
     }
 

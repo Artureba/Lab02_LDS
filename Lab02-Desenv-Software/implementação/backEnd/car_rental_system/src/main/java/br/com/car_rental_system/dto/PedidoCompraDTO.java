@@ -1,34 +1,21 @@
-package br.com.car_rental_system.entity;
+package br.com.car_rental_system.dto;
 
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
-import jakarta.persistence.MappedSuperclass;
 import java.math.BigDecimal;
+import br.com.car_rental_system.entity.Agente;
+import br.com.car_rental_system.entity.Cliente;
 
-@MappedSuperclass
-public abstract class DocumentoComercial {
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+public class PedidoCompraDTO {
     private String status;
     private String nDocumento;
-    private String duracao;
     private String tipo;
-    private Agente proponente;     // idAgente
-    private Cliente contratante;   // idCliente    
-    private String objetoContrato;  // idVeiculo   
+    private Agente proponente;  // Presumindo que seja o objeto Agente
+    private Cliente contratante; // Presumindo que seja o objeto Cliente
+    private String objetoContrato; // IDs dos veículos
     private BigDecimal valorTotal;
+    private String proprietario;
+    private boolean seguro;
 
     // Getters e Setters
-    public Long getId() {
-        return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
-    }
-
     public String getStatus() {
         return status;
     }
@@ -37,20 +24,12 @@ public abstract class DocumentoComercial {
         this.status = status;
     }
 
-    public String getnDocumento() {
+    public String getNumeroDocumento() {
         return nDocumento;
     }
 
-    public void setnDocumento(String nDocumento) {
+    public void setNumeroDocumento(String nDocumento) {
         this.nDocumento = nDocumento;
-    }
-
-    public String getDuracao() {
-        return duracao;
-    }
-
-    public void setDuracao(String duracao) {
-        this.duracao = duracao;
     }
 
     public String getTipo() {
@@ -93,8 +72,19 @@ public abstract class DocumentoComercial {
         this.valorTotal = valorTotal;
     }
 
-    public Boolean aprovarDocumento() {
-        // Adicione sua lógica aqui
-        return true; // ou retorne false baseado na sua lógica
+    public String getProprietario() {
+        return proprietario;
+    }
+
+    public void setProprietario(String proprietario) {
+        this.proprietario = proprietario;
+    }
+
+    public boolean isSeguro() {
+        return seguro;
+    }
+
+    public void setSeguro(boolean seguro) {
+        this.seguro = seguro;
     }
 }
